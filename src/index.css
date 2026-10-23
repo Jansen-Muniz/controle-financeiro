@@ -1,0 +1,339 @@
+:root {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  color: #f1f5f9;
+  background: #0f172a;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Estrutura principal */
+.dashboard {
+  width: min(1100px, 100% - 40px);
+  margin: 0 auto;
+  padding: 48px 0;
+}
+
+/* Cabeçalho */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #38bdf8;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.subtitle {
+  margin: 10px 0 0;
+  color: #94a3b8;
+}
+
+/* Botão principal */
+.button-primary {
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 10px;
+  background: #0284c7;
+  color: #fff;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.button-primary:hover {
+  background: #0369a1;
+}
+
+.transaction-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.button-delete {
+  padding: 8px 12px;
+  border: 1px solid #7f1d1d;
+  border-radius: 8px;
+  background: transparent;
+  color: #fda4af;
+  font-size: 0.85rem;
+  transition: background 0.2s ease;
+}
+
+.button-delete:hover {
+  background: #451a24;
+}
+
+@media (max-width: 480px) {
+  .transaction-item {
+    align-items: flex-start;
+  }
+
+  .transaction-actions {
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* Cartões de resumo */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 28px;
+  margin-bottom: 36px;
+}
+
+.card {
+  padding: 24px;
+  border: 1px solid #263449;
+  border-radius: 16px;
+  background: #172235;
+}
+
+.card p {
+  margin: 0;
+  color: #a7b4c8;
+  font-size: 0.9rem;
+}
+
+.card h2 {
+  margin: 16px 0 10px;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+}
+
+.card span {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.balance-card {
+  background: linear-gradient(135deg, #075985, #172554);
+  border-color: #0e7490;
+}
+
+.balance-card p,
+.balance-card span {
+  color: #dbeafe;
+}
+
+.income {
+  color: #4ade80;
+}
+
+.expense {
+  color: #fb7185;
+}
+
+/* Movimentações */
+.transactions {
+  padding: 26px;
+  border: 1px solid #263449;
+  border-radius: 16px;
+  background: #172235;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.section-heading p {
+  margin: 8px 0 0;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.empty-state {
+  padding: 56px 16px 36px;
+  text-align: center;
+}
+
+.empty-icon {
+  display: inline-grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 14px;
+  background: #24334a;
+  color: #38bdf8 !important;
+  font-size: 1.5rem !important;
+}
+
+.empty-state h3 {
+  margin: 18px 0 8px;
+  font-size: 1rem;
+}
+
+.empty-state p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+/* Cores dos valores nos cartões */
+.income-card h2 {
+  color: #4ade80;
+}
+
+.expense-card h2 {
+  color: #fb7185;
+}
+
+.transaction-list {
+  margin-top: 28px;
+}
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  border-top: 1px solid #263449;
+}
+
+.transaction-item h3 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+}
+
+.transaction-item span {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.transaction-item strong {
+  white-space: nowrap;
+}
+
+.transaction-item .receita {
+  color: #4ade80;
+}
+
+.transaction-item .despesa {
+  color: #fb7185;
+}
+
+/* Formulário de movimentação */
+.form-movimentacao {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.campo label {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.campo input,
+.campo select {
+  width: 100%;
+  min-width: 0;
+  padding: 13px 14px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  outline: none;
+  background: #0f172a;
+  color: #f1f5f9;
+  transition: border-color 0.2s ease;
+}
+
+.campo input::placeholder {
+  color: #64748b;
+}
+
+.campo input:focus,
+.campo select:focus {
+  border-color: #38bdf8;
+}
+
+.form-movimentacao .button-primary {
+  justify-self: start;
+  align-self: end;
+}
+
+/* Formulário em telas pequenas */
+@media (max-width: 600px) {
+  .form-movimentacao {
+    grid-template-columns: 1fr;
+  }
+
+  .form-movimentacao .button-primary {
+    width: 100%;
+  }
+}
+
+/* Adaptação para celulares */
+@media (max-width: 700px) {
+  .dashboard {
+    padding: 28px 0;
+  }
+
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .summary {
+    grid-template-columns: 1fr;
+  }
+
+  .transactions {
+    padding: 20px;
+  }
+}
