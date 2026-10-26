@@ -1,22 +1,18 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { CardResumo } from "./components/CardResumo.jsx"
 import { FormularioMovimentacao } from "./components/FormularioMovimentacao.jsx"
 
 const App = () => {
-  const [movimentacoes, setMovimentacoes] = useState([
-    {
-      id: 1,
-      descricao: "Salário",
-      valor: 2000,
-      tipo: "receita",
-    },
-    {
-      id: 2,
-      descricao: "Aluguel",
-      valor: 500,
-      tipo: "despesa",
-    },
-  ])
+  const [modalLimpezaAberto, setModalLimpezaAberto] = useState(false)
+  const [movimentacoes, setMovimentacoes] = useState(() => {
+    const dadosSalvos = localStorage.getItem("movimentacoes")
+
+    return dadosSalvos ? JSON.parse(dadosSalvos) : []
+  })
+
+  useEffect(() => {
+    localStorage.setItem("movimentacoes", JSON.stringify(movimentacoes))
+  }, [movimentacoes])
 
   const receitas = movimentacoes
     .filter((movimentacao) => movimentacao.tipo === "receita")
@@ -38,6 +34,10 @@ const App = () => {
     )
   }
 
+  const limparMovimentacoes = () => {
+    setModalLimpezaAberto(true)
+  }
+
   return (
     <main className="dashboard">
       <header className="header">
@@ -47,7 +47,18 @@ const App = () => {
           <p className="subtitle">Acompanhe seu dinheiro com mais clareza.</p>
         </div>
 
-        <button className="button-primary">+ Nova movimentação</button>
+        <div className="header-actions">
+          <button className="button-primary">+ Nova movimentação</button>
+
+          <button
+            type="button"
+            className="button-delete"
+            onClick={limparMovimentacoes}
+            disabled={movimentacoes.length === 0}
+          >
+            Limpar todos os registros
+          </button>
+        </div>
       </header>
 
       <section className="transactions">
@@ -141,6 +152,45 @@ const App = () => {
           </div>
         )}
       </section>
+
+      {modalLimpezaAberto && (
+        <div className="modal-overlay">
+          <div
+            className="modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-titulo"
+          >
+            <h2 id="modal-titulo">Limpar movimentações?</h2>
+
+            <p>
+              Tem certeza de que deseja apagar todos os registros? Essa ação não
+              poderá ser desfeita.
+            </p>
+
+            <div className="modal-actions">
+              <button
+                type="button"
+                className="button-cancel"
+                onClick={() => setModalLimpezaAberto(false)}
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="button"
+                className="button-confirm"
+                onClick={() => {
+                  setMovimentacoes([])
+                  setModalLimpezaAberto(false)
+                }}
+              >
+                Sim, limpar tudo
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   )
 }
