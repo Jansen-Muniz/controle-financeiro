@@ -119,6 +119,51 @@ a {
   background: #451a24;
 }
 
+.botao-flutuante {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 900;
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: #0284c7;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 25%);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.botao-flutuante:hover {
+  background: #0369a1;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgb(0 0 0 / 30%);
+}
+
+.botao-flutuante:focus-visible {
+  outline: 3px solid #7dd3fc;
+  outline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+  .botao-flutuante {
+    right: 18px;
+    bottom: 18px;
+    width: 52px;
+    height: 52px;
+  }
+}
+
 @media (max-width: 480px) {
   .transaction-item {
     align-items: flex-start;
@@ -393,6 +438,83 @@ a {
 .button-confirm:hover {
   background: #d13b50;
   transform: translateY(-1px);
+}
+
+.notificacao {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  z-index: 1000;
+  width: min(420px, calc(100% - 32px));
+  padding: 16px 20px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 20%);
+  animation: entrarNotificacao 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.notificacao.sucesso {
+  background: #052e16;
+  border-color: #166534;
+  color: #bbf7d0;
+}
+
+.notificacao.erro {
+  background: #450a0a;
+  border-color: #991b1b;
+  color: #fecaca;
+}
+
+.data-movimentacao {
+  margin-left: 8px;
+}
+
+.transaction-filters {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.transaction-filters button {
+  padding: 9px 18px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.transaction-filters button:hover {
+  background: #252525;
+  color: #fff;
+}
+
+.transaction-filters button.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes entrarNotificacao {
+  from {
+    opacity: 0;
+    transform: translateY(-50%, -10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-50%, 0);
+  }
 }
 
 @keyframes modal-entrada {

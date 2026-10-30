@@ -1,9 +1,24 @@
 import { useState } from "react"
+import PropTypes from "prop-types"
 
-const FormularioMovimentacao = ({ onAdicionar }) => {
+const obterDataLocal = () => {
+  const hoje = new Date()
+  const ano = hoje.getFullYear()
+  const mes = String(hoje.getMonth() + 1).padStart(2, "0")
+  const dia = String(hoje.getDate()).padStart(2, "0")
+
+  return `${ano}-${mes}-${dia}`
+}
+
+const FormularioMovimentacao = ({
+  onAdicionar,
+  onNotificar,
+  campoDescricaoRef,
+}) => {
   const [descricao, setDescricao] = useState("")
   const [valor, setValor] = useState("")
   const [tipo, setTipo] = useState("receita")
+  const [data, setData] = useState(obterDataLocal())
 
   const handleSubmit = (evento) => {
     evento.preventDefault()
@@ -11,20 +26,25 @@ const FormularioMovimentacao = ({ onAdicionar }) => {
     const valorNumerico = Number(valor)
 
     if (!descricao.trim() || !valor || valorNumerico <= 0) {
-      alert("Preencha a descrição e informe um valor maior que zero.")
+      onNotificar(
+        "Preencha a descrição e informe um valor maior que zero.",
+        "erro",
+      )
       return
     }
 
     onAdicionar({
-      id: crypto.randomUUID(),
       descricao: descricao.trim(),
       valor: valorNumerico,
       tipo,
+      data,
     })
 
     setDescricao("")
     setValor("")
     setTipo("receita")
+
+    setData(obterDataLocal())
   }
 
   return (
@@ -32,6 +52,7 @@ const FormularioMovimentacao = ({ onAdicionar }) => {
       <div className="campo">
         <label htmlFor="descricao">Descrição</label>
         <input
+          ref={campoDescricaoRef}
           id="descricao"
           type="text"
           placeholder="Ex.: Salário, aluguel..."
@@ -54,6 +75,17 @@ const FormularioMovimentacao = ({ onAdicionar }) => {
       </div>
 
       <div className="campo">
+        <label htmlFor="data">Data da movimentação</label>
+        <input
+          id="data"
+          type="date"
+          value={data}
+          onChange={(evento) => setData(evento.target.value)}
+          required
+        />
+      </div>
+
+      <div className="campo">
         <label htmlFor="tipo">Tipo de movimentação</label>
         <select
           id="tipo"
@@ -70,6 +102,15 @@ const FormularioMovimentacao = ({ onAdicionar }) => {
       </button>
     </form>
   )
+}
+
+FormularioMovimentacao.propTypes = {
+  onAdicionar: PropTypes.func.isRequired,
+  onNotificar: PropTypes.func.isRequired,
+  campoDescricaoRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any }),
+  ]),
 }
 
 export { FormularioMovimentacao }
